@@ -11,10 +11,12 @@ export const FinalScore = styled.Text`
 	color: #fff;
 	font-size: 60px;
 	text-align: center;
+	font-family: 'Montserrat-Regular';
 `
 
 export const BestScore = styled.Text`
 	color: #fff;
 	font-size: 32px;
 	text-align: center;
+	font-family: 'Montserrat-Thin';
 `

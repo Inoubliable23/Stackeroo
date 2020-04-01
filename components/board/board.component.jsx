@@ -44,6 +44,7 @@ class Board extends Component {
 	}
 
 	startGameLoop() {
+		clearInterval(this.tickInterval);
 		this.tickInterval = setInterval(() => {
 			this.tick();
 		}, 70);
