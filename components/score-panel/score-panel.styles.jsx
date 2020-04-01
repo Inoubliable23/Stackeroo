@@ -1,0 +1,20 @@
+import styled from 'styled-components/native';
+
+export const ScorePanelContainer = styled.View`
+	flex: 1;
+	width: 100%;
+	background-color: #111;
+	align-items: center;
+`
+
+export const FinalScore = styled.Text`
+	color: #fff;
+	font-size: 60px;
+	text-align: center;
+`
+
+export const BestScore = styled.Text`
+	color: #fff;
+	font-size: 32px;
+	text-align: center;
+`
