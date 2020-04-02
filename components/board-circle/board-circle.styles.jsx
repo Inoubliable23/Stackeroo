@@ -1,11 +1,12 @@
 import styled from 'styled-components/native';
 
-const circleWidth = '20px';
+const circleWidthNum = 20;
+const circleWidth = `${circleWidthNum}px`;
 
 const Circle = styled.View`
-	border-radius: 10px;
 	width: ${circleWidth};
 	height: ${circleWidth};
+	border-radius: ${circleWidthNum / 2}px;
 	margin: 3px;
 `
 

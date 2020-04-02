@@ -1,7 +1,7 @@
 import gameActionTypes from './game.types';
 
 const initialState = {
-	isGameOver: true,
+	isGameOver: false,
 	finalScore: null
 }
 
