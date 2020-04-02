@@ -5,5 +5,4 @@ export const BoardContainer = styled.View`
 	align-items: center;
 	justify-content: flex-start;
 	padding-top: 50px;
-	z-index: 1;
 `

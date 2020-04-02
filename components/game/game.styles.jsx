@@ -6,6 +6,7 @@ export const GameContainer = styled.View`
 	justify-content: center;
 	padding: 20px;
 	margin-top: 20px;
+	z-index: 1;
 `
 
 export const ScorePanelContainer = styled.View`

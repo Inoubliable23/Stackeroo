@@ -2,7 +2,8 @@ import gameActionTypes from './game.types';
 
 const initialState = {
 	isGameOver: false,
-	finalScore: null
+	finalScore: null,
+	tapHappened: false
 }
 
 export default (state = initialState, { type, payload }) => {
@@ -23,6 +24,16 @@ export default (state = initialState, { type, payload }) => {
 		return {
 			...state,
 			finalScore: payload
+		}
+	case gameActionTypes.TAP_HAPPENED:
+		return {
+			...state,
+			tapHappened: true
+		}
+	case gameActionTypes.TAP_HANDLED:
+		return {
+			...state,
+			tapHappened: false
 		}
 
 	default:

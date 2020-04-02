@@ -2,11 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { View } from 'react-native';
 import { ScorePanelContainer, FinalScore, BestScore } from './score-panel.styles';
-import { startGame } from '../../redux/game/game.actions';
 
-const ScorePanel = ({ startGame, finalScore }) => {
+const ScorePanel = ({ finalScore }) => {
 	return (
-		<ScorePanelContainer onTouchStart={() => startGame()} onClick={() => startGame()}>
+		<ScorePanelContainer>
 			{
 				finalScore ?
 				<View>
@@ -24,8 +23,4 @@ const mapStateToProps = state => ({
 	finalScore: state.game.finalScore
 });
 
-const mapDispatchToProps = dispatch => ({
-	startGame: () => dispatch(startGame())
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ScorePanel);
+export default connect(mapStateToProps)(ScorePanel);
