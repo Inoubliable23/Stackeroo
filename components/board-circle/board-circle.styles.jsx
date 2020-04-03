@@ -1,5 +1,12 @@
 import styled from 'styled-components/native';
 
+const colors = [
+	'#00fcff',
+	'#F59F3D',
+	'#BC59BD'
+];
+const circleColor = colors[2];
+
 const circleWidthNum = 20;
 const circleWidth = `${circleWidthNum}px`;
 
@@ -11,10 +18,10 @@ const Circle = styled.View`
 `
 
 export const InactiveCircle = styled(Circle)`
-	background-color: #442445;
+	background-color: ${circleColor};
+	opacity: 0.2;
 `
 
 export const ActiveCircle = styled(Circle)`
-	background-color: #BC59BD;
-	box-shadow: 0 0 10px #BC59BD;
+	background-color: ${circleColor};
 `
