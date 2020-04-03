@@ -7,7 +7,7 @@ export const ScorePanelContainer = styled.View`
 	align-items: center;
 `
 
-export const FinalScore = styled.Text`
+export const Score = styled.Text`
 	color: #fff;
 	font-size: 60px;
 	text-align: center;

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BoardContainer, BoardOuterContainer } from './board.styles';
 import BoardRow from '../board-row/board-row.component';
 import { connect } from 'react-redux';
-import { gameOver, setFinalScore, tapHandled } from '../../redux/game/game.actions';
+import { gameOver, setScore, setBestScore, tapHandled } from '../../redux/game/game.actions';
 
 class Board extends Component {
 
@@ -67,6 +67,7 @@ class Board extends Component {
 		if (this.props.isGameOver) return;
 
 		this.currentPosition = this.getNewPosition();
+		this.props.setScore(this.currentPosition.row);
 
 		let rowDataArray = [];
 		for(let i = 0; i < this.columns; i++) {
@@ -197,8 +198,12 @@ class Board extends Component {
 	}
 
 	endGame() {
-		this.props.setFinalScore(this.currentPosition.row);
-		this.props.gameOver();
+		const { bestScore, setBestScore, gameOver } = this.props;
+		const score = this.currentPosition.row;
+		gameOver();
+		if (score > bestScore) {
+			setBestScore(score);
+		}
 	}
 
 	render() {
@@ -216,12 +221,14 @@ class Board extends Component {
 
 const mapStateToProps = state => ({
 	isGameOver: state.game.isGameOver,
-	tapHappened: state.game.tapHappened
+	tapHappened: state.game.tapHappened,
+	bestScore: state.game.bestScore
 });
 
 const mapDispatchToProps = {
 	gameOver,
-	setFinalScore,
+	setScore,
+	setBestScore,
 	tapHandled
 };
 

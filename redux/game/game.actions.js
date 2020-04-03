@@ -1,22 +1,82 @@
-import gameActionTypes from './game.types';
+import { storeData, fetchData } from '../../database/database';
+import { START_GAME, GAME_OVER, SET_BEST_SCORE, SET_BEST_SCORE_TO_DB_START, SET_BEST_SCORE_TO_DB_SUCCESS, SET_BEST_SCORE_TO_DB_FAILURE, GET_BEST_SCORE_FROM_DB_START, GET_BEST_SCORE_FROM_DB_SUCCESS, GET_BEST_SCORE_FROM_DB_FAILURE, TAP_HAPPENED, TAP_HANDLED, SET_SCORE } from './game.types';
 
 export const startGame = () => ({
-	type: gameActionTypes.START_GAME
+	type: START_GAME
 });
 
 export const gameOver = () => ({
-	type: gameActionTypes.GAME_OVER
+	type: GAME_OVER
 });
 
-export const setFinalScore = finalScore => ({
-	type: gameActionTypes.SET_FINAL_SCORE,
-	payload: finalScore
+export const setBestScore = score => dispatch => {
+	dispatch(setBestScoreToStore(score));
+	dispatch(setBestScoreToDb(score));
+};
+
+const setBestScoreToStore = score => ({
+	type: SET_BEST_SCORE,
+	payload: score
+});
+
+const setBestScoreToDb = score => async dispatch => {
+	dispatch(setBestScoreToDbStart());
+
+	try {
+		await storeData('BEST_SCORE', score);
+		dispatch(setBestScoreToDbSuccess());
+	} catch (error) {
+		dispatch(setBestScoreToDbFailure(error));
+	}
+};
+
+const setBestScoreToDbStart = () => ({
+	type: SET_BEST_SCORE_TO_DB_START
+});
+
+const setBestScoreToDbSuccess = () => ({
+	type: SET_BEST_SCORE_TO_DB_SUCCESS
+});
+
+const setBestScoreToDbFailure = error => ({
+	type: SET_BEST_SCORE_TO_DB_FAILURE,
+	payload: error
+});
+
+export const getBestScoreFromDb = () => async dispatch => {
+	dispatch(getBestScoreFromDbStart());
+
+	try {
+		const bestScore = await fetchData('BEST_SCORE');
+		dispatch(getBestScoreFromDbSuccess(bestScore));
+	} catch (error) {
+		dispatch(getBestScoreFromDbFailure(error));
+	}
+};
+
+const getBestScoreFromDbStart = () => ({
+	type: GET_BEST_SCORE_FROM_DB_START
+});
+
+const getBestScoreFromDbSuccess = score => ({
+	type: GET_BEST_SCORE_FROM_DB_SUCCESS,
+	payload: score
+});
+
+const getBestScoreFromDbFailure = error => ({
+	type: GET_BEST_SCORE_FROM_DB_FAILURE,
+	payload: error
+});
+
+export const setScore = score => ({
+	type: SET_SCORE,
+	payload: score
 });
 
 export const tapHappened = () => ({
-	type: gameActionTypes.TAP_HAPPENED
+	type: TAP_HAPPENED
 });
 
 export const tapHandled = () => ({
-	type: gameActionTypes.TAP_HANDLED
+	type: TAP_HANDLED
 });

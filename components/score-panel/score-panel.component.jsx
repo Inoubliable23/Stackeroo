@@ -1,26 +1,25 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { View } from 'react-native';
-import { ScorePanelContainer, FinalScore, BestScore } from './score-panel.styles';
+import { ScorePanelContainer, Score, BestScore } from './score-panel.styles';
 
-const ScorePanel = ({ finalScore }) => {
+const ScorePanel = ({ score, bestScore }) => {
 	return (
 		<ScorePanelContainer>
+			<View>
+			<Score>{score}</Score>
 			{
-				finalScore ?
-				<View>
-					<FinalScore>{finalScore}</FinalScore>
-					<BestScore>BEST {68}</BestScore>
-				</View>
-				:
-				null
+				bestScore ?
+				<BestScore>BEST {bestScore}</BestScore> : null
 			}
+			</View>
 		</ScorePanelContainer>
 	);
 }
 
 const mapStateToProps = state => ({
-	finalScore: state.game.finalScore
+	score: state.game.score,
+	bestScore: state.game.bestScore
 });
 
 export default connect(mapStateToProps)(ScorePanel);
