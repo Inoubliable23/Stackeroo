@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BoardContainer } from './board.styles';
+import { BoardContainer, BoardOuterContainer } from './board.styles';
 import BoardRow from '../board-row/board-row.component';
 import { connect } from 'react-redux';
 import { gameOver, setFinalScore, tapHandled } from '../../redux/game/game.actions';
@@ -7,7 +7,9 @@ import { gameOver, setFinalScore, tapHandled } from '../../redux/game/game.actio
 class Board extends Component {
 
 	tickInterval = undefined;
-	rows = 15;
+	rows = 40;
+	visibleRows = 15;
+	rowHeight = 26;
 	columns = 10;
 	startingPlayerWidth = 4;
 	playerWidth = undefined;
@@ -18,6 +20,7 @@ class Board extends Component {
 	}
 	currentPosition = {};
 	rowsDataArray = [];
+	bottomDistance = 0;
 
 	componentDidMount() {
 		this.resetBoard();
@@ -30,10 +33,6 @@ class Board extends Component {
 		}
 	}
 
-	componentWillUnmount() {
-		
-	}
-
 	startGameLoop() {
 		requestAnimationFrame(this.gameLoop.bind(this));
 	}
@@ -41,9 +40,14 @@ class Board extends Component {
 	lastTime = Date.now();
 	gameLoop(timestamp) {
 		const timeDiff = timestamp - this.lastTime;
-		if (timeDiff > 65) {
+		if (timeDiff > 65 && !this.props.isGameOver) {
 			this.updateAndDraw();
 			this.lastTime = timestamp;
+
+			let bottomDistanceShouldBe = (this.currentPosition.row - Math.floor(this.visibleRows / 2)) * this.rowHeight;
+			if (bottomDistanceShouldBe > this.bottomDistance) {
+				this.bottomDistance += 1;
+			}
 		}
 
 		requestAnimationFrame(this.gameLoop.bind(this));
@@ -168,6 +172,7 @@ class Board extends Component {
 	resetBoard() {
 		this.currentPosition = this.startingPosition;
 		this.playerWidth = this.startingPlayerWidth;
+		this.bottomDistance = 0;
 
 		let rowsDataArray = [];
 		for(let i = 0; i < this.rows; i++) {
@@ -198,11 +203,13 @@ class Board extends Component {
 
 	render() {
 		return (
-			<BoardContainer>
-				{
-					this.rowsDataArray.map((rowData, index) => <BoardRow key={index} rowData={rowData} />)
-				}
-			</BoardContainer>
+			<BoardOuterContainer height={this.visibleRows * this.rowHeight}>
+				<BoardContainer bottomDistance={this.bottomDistance}>
+					{
+						this.rowsDataArray.map((rowData, index) => <BoardRow key={index} rowData={rowData} />)
+					}
+				</BoardContainer>
+			</BoardOuterContainer>
 		);
 	}
 }

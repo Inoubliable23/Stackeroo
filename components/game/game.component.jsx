@@ -9,7 +9,6 @@ class Game extends Component {
 
 	handleTouch() {
 		const { isGameOver, tapHappened, startGame } = this.props;
-		console.log('handleTouch');
 		if (!isGameOver) {
 			tapHappened();
 			return;

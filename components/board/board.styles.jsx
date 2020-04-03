@@ -1,8 +1,15 @@
 import styled from 'styled-components/native';
 
-export const BoardContainer = styled.View`
+export const BoardOuterContainer = styled.View`
 	flex: 1;
 	align-items: center;
-	justify-content: flex-start;
-	padding-top: 50px;
+	position: relative;
+	overflow: hidden;
+	max-height: ${props => props.height}px;
+	margin-top: 40px;
+`
+
+export const BoardContainer = styled.View`
+	position: absolute;
+	bottom: -${props => props.bottomDistance}px;
 `
