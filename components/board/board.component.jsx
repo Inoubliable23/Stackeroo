@@ -43,7 +43,8 @@ class Board extends Component {
 		if (timeDiff > 65 && !this.props.isGameOver) {
 			this.updateAndDraw();
 			this.lastTime = timestamp;
-
+		}
+		if (timeDiff > 30 && !this.props.isGameOver) {
 			let bottomDistanceShouldBe = (this.currentPosition.row - Math.floor(this.visibleRows / 2)) * this.rowHeight;
 			if (bottomDistanceShouldBe > this.bottomDistance) {
 				this.bottomDistance += 1;
