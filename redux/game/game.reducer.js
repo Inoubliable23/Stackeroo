@@ -4,6 +4,7 @@ const initialState = {
 	isGameOver: false,
 	score: null,
 	bestScore: null,
+	isNewBestScore: false,
 	isSavingScore: false,
 	isFetchingScore: false,
 	tapHappened: false
@@ -21,13 +22,15 @@ export default (state = initialState, { type, payload }) => {
 		return {
 			...state,
 			isGameOver: false,
-			finalScore: null
+			score: null,
+			isNewBestScore: false
 		}
 
 	case SET_BEST_SCORE:
 		return {
 			...state,
-			bestScore: payload
+			bestScore: payload,
+			isNewBestScore: true
 		}
 	case SET_BEST_SCORE_TO_DB_START:
 		return {
