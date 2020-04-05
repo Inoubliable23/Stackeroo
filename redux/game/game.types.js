@@ -1,3 +1,4 @@
+export const ENTER_GAME = 'ENTER_GAME';
 export const START_GAME = 'START_GAME';
 export const GAME_OVER = 'GAME_OVER';
 

@@ -9,7 +9,7 @@ export const GameContainer = styled.View`
 	z-index: 1;
 `
 
-export const ScorePanelContainer = styled.View`
+export const PanelContainer = styled.View`
 	flex: 1;
 	width: 100%;
 `

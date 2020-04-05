@@ -15,7 +15,7 @@ class Board extends Component {
 	playerWidth = undefined;
 	startingPosition = {
 		row: 0,
-		column: 4,
+		column: 3,
 		isTurnedLeft: false
 	}
 	currentPosition = {};
@@ -24,10 +24,14 @@ class Board extends Component {
 
 	componentDidMount() {
 		this.resetBoard();
-		this.startGameLoop();
+		this.draw();
 	}
 
 	componentDidUpdate(prevProps) {
+		if (this.props.hasEnteredGame && !prevProps.hasEnteredGame) {
+			this.startGameLoop();
+		}
+
 		if (!this.props.isGameOver && prevProps.isGameOver) {
 			this.resetBoard();
 		}
@@ -223,7 +227,8 @@ class Board extends Component {
 const mapStateToProps = state => ({
 	isGameOver: state.game.isGameOver,
 	tapHappened: state.game.tapHappened,
-	bestScore: state.game.bestScore
+	bestScore: state.game.bestScore,
+	hasEnteredGame: state.game.hasEnteredGame
 });
 
 const mapDispatchToProps = {
